@@ -55,7 +55,33 @@ The dataset was divided into three distinct subsets to ensure the model could be
 The perfectly scaled and resampled features (`x`) and targets (`y`) were horizontally stacked back together using `np.hstack`. This resulted in clean, optimized numpy arrays ready to be fed directly into predictive algorithms.
 
 ### Next Steps / Model Implementations
-*(Note: I will update this section with the specific models I train on this prepared data, such as KNN, Naive Bayes, or SVM, along with their accuracy scores!)*
+### Model Implementations & Results
+
+#### 1. K-Nearest Neighbors (KNN)
+The first algorithm applied to the fully preprocessed dataset was the K-Nearest Neighbors (KNN) classifier. 
+
+**How it works:**
+KNN is a simple, distance-based algorithm. When given a new, unseen data point, it looks at the 'k' closest data points (neighbors) in the training set. The new point is then assigned the class that is most common among those neighbors.
+
+**Implementation Details:**
+* **Library:** Used `KNeighborsClassifier` from `sklearn.neighbors`.
+* **Hyperparameter:** I initialized the model with `n_neighbors=1`. This means the algorithm makes its prediction based *only* on the single closest data point in the training set. 
+
+**Model Evaluation:**
+To evaluate the model's performance on the completely unseen testing set, I used `sklearn.metrics.classification_report`. 
+
+**Results (Accuracy: 82%):**
+* **Class 1 (Gamma Rays - Signal):**
+  * **Precision (0.84):** When the model predicted a particle was a gamma ray, it was correct 84% of the time.
+  * **Recall (0.90):** The model successfully identified 90% of all actual gamma rays in the test set.
+  * **F1-Score (0.87):** An excellent balance between precision and recall for the signal class.
+* **Class 0 (Hadrons - Background):**
+  * **Precision (0.78):** When predicting a hadron, it was correct 78% of the time.
+  * **Recall (0.68):** It successfully identified 68% of the actual background noise.
+  * **F1-Score (0.73):** Slightly lower performance compared to the signal class, indicating the model occasionally struggles to distinguish complex background noise from actual signals.
+
+**Key Takeaway:**
+With an overall accuracy of 82% using just `n_neighbors=1`, the baseline KNN model performs strongly, particularly in correctly identifying the critical gamma ray signals (90% recall). Future experiments could involve hyperparameter tuning (testing different values for 'k') to see if the background noise recall can be improved without sacrificing signal accuracy.
 
 ---
 
@@ -64,3 +90,4 @@ The perfectly scaled and resampled features (`x`) and targets (`y`) were horizon
 *(Details for the next project will be added here, following a similar structure of dataset overview, preprocessing deep-dives, and model results.)*
 
 ---
+
