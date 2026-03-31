@@ -45,21 +45,29 @@ A fundamental linear classification algorithm that estimates the probability of 
 * **Insights:** More balanced precision and recall between the two classes compared to KNN. It correctly identified 72% of the Hadron background noise, outperforming KNN in that specific metric.
 
 #### 3. Naive Bayes
-A probabilistic classifier based on applying Bayes' theorem with strong (naive) independence assumptions between the features. Given that our dataset features are continuous, Gaussian Naive Bayes was utilized.
+A probabilistic classifier based on applying Bayes' theorem with strong (naive) independence assumptions between the features. 
 * **Overall Accuracy:** **[XX%]**
 * **Performance Breakdown:**
   * **Gamma Rays (Signal):** Precision: `[XX]`, Recall: `[XX]`
   * **Hadrons (Background):** Precision: `[XX]`, Recall: `[XX]`
-* **Insights:** *(Add a brief sentence here about how it compared to the others. For example: "While the independence assumption is 'naive' for physical dimensions, the model still provided a strong probabilistic baseline...")*
+* **Insights:** *(Add your specific insights for Naive Bayes here!)*
+
+#### 4. Support Vector Machine (SVM)
+A powerful algorithm that finds the optimal hyperplane in an N-dimensional space to distinctly classify the data points.
+* **Overall Accuracy:** **86%** *(Best Performing Model)*
+* **Performance Breakdown:**
+  * **Gamma Rays (Signal):** Precision: 0.89, Recall: 0.90
+  * **Hadrons (Background):** Precision: 0.81, Recall: 0.80
+* **Insights:** SVM significantly outperformed the previous models across the board. It achieved an excellent 90% recall for the Gamma Rays while simultaneously jumping to an 80% recall for the tricky Hadron background noise, proving its effectiveness in finding complex decision boundaries.
 
 ---
 
 ### 🧠 Core Mathematical Concepts Mastered
 A major focus of this project was understanding the mathematical "core" of the algorithms rather than just using library functions. 
 
+* **Hyperplanes & Margins (SVM):** Understanding how SVM calculates the decision boundary (hyperplane) that maximizes the distance (margin) between the closest data points of both classes (the Support Vectors).
 * **Bayes' Theorem:** The foundation of the Naive Bayes classifier. It calculates the probability of a hypothesis (class) given prior knowledge. 
   * Formula: `P(A|B) = [P(B|A) * P(A)] / P(B)`
-  * *Application:* Calculating the probability that an event is a Gamma Ray given its specific feature measurements.
 * **Euclidean Distance:** The core of the K-Nearest Neighbors algorithm, calculating the straight-line distance between two points in multidimensional space to find the closest matches.
 * **The Sigmoid Function:** The mathematical curve used in Logistic Regression to map any real-valued number into a value between 0 and 1, representing a probability.
 * **Z-Score Normalization:** The formula behind the `StandardScaler`: `z = (x - μ) / σ`, ensuring our data features have a mean of 0 and standard deviation of 1.
