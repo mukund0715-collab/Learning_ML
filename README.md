@@ -15,7 +15,7 @@ As I build new models and tackle different datasets, I will continually update t
 ## Project 1: MAGIC Gamma Telescope Data Classification
 
 ### Overview
-This project focuses on the classification of high-energy gamma particles using the MAGIC Gamma Telescope dataset. The goal is to accurately distinguish between gamma rays (signal) and hadronic showers (background noise). This section details my approach to data exploration, robust preprocessing, and the evaluation of multiple classification models built from the ground up.
+This project focuses on the classification of high-energy gamma particles using the MAGIC Gamma Telescope dataset. The goal is to accurately distinguish between gamma rays (signal) and hadronic showers (background noise). This section details my approach to data exploration, robust preprocessing, and the evaluation of multiple classification models, ranging from traditional machine learning to deep learning.
 
 ### The Dataset
 * **Source:** MAGIC Gamma Telescope dataset (`magic04.data`).
@@ -34,42 +34,40 @@ This project focuses on the classification of high-energy gamma particles using 
 ### Model Implementations & Results
 
 #### 1. K-Nearest Neighbors (KNN)
-KNN is a distance-based algorithm that classifies a new data point based on the majority class of its 'k' closest neighbors in the training data.
-* **Configuration:** `n_neighbors=1`
 * **Overall Accuracy:** **82%**
 * **Insights:** Strong performance in detecting actual signals (90% recall for Gamma Rays), but occasionally struggles to distinguish complex background noise (68% recall for Hadrons).
 
 #### 2. Logistic Regression
-A fundamental linear classification algorithm that estimates the probability of an event occurring using a logistic (sigmoid) function.
 * **Overall Accuracy:** **79%**
 * **Insights:** More balanced precision and recall between the two classes compared to KNN. It correctly identified 72% of the Hadron background noise, outperforming KNN in that specific metric.
 
 #### 3. Naive Bayes
-A probabilistic classifier based on applying Bayes' theorem with strong (naive) independence assumptions between the features. 
-* **Overall Accuracy:** **[XX%]**
-* **Performance Breakdown:**
-  * **Gamma Rays (Signal):** Precision: `[XX]`, Recall: `[XX]`
-  * **Hadrons (Background):** Precision: `[XX]`, Recall: `[XX]`
-* **Insights:** *(Add your specific insights for Naive Bayes here!)*
+* **Overall Accuracy:** **72%** (Baseline probabilistic approach using Gaussian Naive Bayes)
 
 #### 4. Support Vector Machine (SVM)
-A powerful algorithm that finds the optimal hyperplane in an N-dimensional space to distinctly classify the data points.
-* **Overall Accuracy:** **86%** *(Best Performing Model)*
-* **Performance Breakdown:**
-  * **Gamma Rays (Signal):** Precision: 0.89, Recall: 0.90
-  * **Hadrons (Background):** Precision: 0.81, Recall: 0.80
-* **Insights:** SVM significantly outperformed the previous models across the board. It achieved an excellent 90% recall for the Gamma Rays while simultaneously jumping to an 80% recall for the tricky Hadron background noise, proving its effectiveness in finding complex decision boundaries.
+* **Overall Accuracy:** **86%** * **Insights:** SVM significantly outperformed the traditional linear models. It achieved an excellent 90% recall for the Gamma Rays while simultaneously jumping to an 80% recall for the tricky Hadron background noise, proving its effectiveness in finding complex decision boundaries.
+
+#### 5. Deep Learning / Neural Network (TensorFlow)
+Moved beyond traditional algorithms to build and train a custom Feedforward Neural Network using `tensorflow` and `keras`.
+* **Hyperparameter Tuning:** Instead of guessing the best architecture, I implemented a robust grid search to train and evaluate multiple model configurations systematically. I tested combinations of:
+  * **Nodes per layer:** 16, 32, 64
+  * **Dropout Probability:** 0, 0.2 (to prevent overfitting)
+  * **Learning Rate:** 0.01, 0.005, 0.001
+  * **Batch Size:** 32, 64, 128
+* **Model Selection:** The models were evaluated on the *Validation Set* across 100 epochs. I tracked the validation loss (`val_loss`) and programmatically saved the model that achieved the lowest loss to ensure maximum generalization.
+* **Overall Accuracy:** **~87%** (86.96%) *(Best Performing Model!)*
+* **Insights:** The neural network, optimized through rigorous hyperparameter tuning, became the strongest performing model in the project, proving the power of deep learning when paired with well-scaled, balanced data.
 
 ---
 
-### 🧠 Core Mathematical Concepts Mastered
-A major focus of this project was understanding the mathematical "core" of the algorithms rather than just using library functions. 
+### 🧠 Core Mathematical & Architectural Concepts Mastered
+A major focus of this project was understanding the underlying mechanics rather than just using library functions. 
 
-* **Hyperplanes & Margins (SVM):** Understanding how SVM calculates the decision boundary (hyperplane) that maximizes the distance (margin) between the closest data points of both classes (the Support Vectors).
-* **Bayes' Theorem:** The foundation of the Naive Bayes classifier. It calculates the probability of a hypothesis (class) given prior knowledge. 
-  * Formula: `P(A|B) = [P(B|A) * P(A)] / P(B)`
-* **Euclidean Distance:** The core of the K-Nearest Neighbors algorithm, calculating the straight-line distance between two points in multidimensional space to find the closest matches.
-* **The Sigmoid Function:** The mathematical curve used in Logistic Regression to map any real-valued number into a value between 0 and 1, representing a probability.
+* **Neural Network Architecture:** Understanding the impact of layers, nodes, batch sizes, and learning rates on model convergence.
+* **Dropout Regularization:** Using dropout layers to randomly deactivate neurons during training, forcing the network to learn robust features and preventing overfitting.
+* **Hyperplanes & Margins (SVM):** Understanding how SVM calculates the decision boundary (hyperplane) that maximizes the distance (margin) between the closest data points.
+* **Bayes' Theorem:** The foundation of the Naive Bayes classifier: `P(A|B) = [P(B|A) * P(A)] / P(B)`
+* **Euclidean Distance:** The core of the K-Nearest Neighbors algorithm, calculating the straight-line distance between two points in multidimensional space.
 * **Z-Score Normalization:** The formula behind the `StandardScaler`: `z = (x - μ) / σ`, ensuring our data features have a mean of 0 and standard deviation of 1.
 
 ---
